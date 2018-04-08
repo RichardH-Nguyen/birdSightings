@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="bin/www" type="NodeJSConfigurationType" factoryName="Node.js" path-to-js-file="$PROJECT_DIR$/../birdSightings/bin/www" working-dir="$PROJECT_DIR$/../birdSightings">
+    <envs>
+      <env name="DEBUG" value="untitled3:*" />
+      <env name="BIRD_DB_URL" value="mongodb://richard:whatever4239090@ds151028.mlab.com:51028/bird_sightings" />
+    </envs>
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSStartBrowserRunConfigurationExtension">
+      <browser url="http://localhost:3000/" />
+    </EXTENSION>
+    <method />
+  </configuration>
+</component>
