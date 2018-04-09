@@ -22,12 +22,23 @@ router.post('/addBird', function (req, res, next) {
   // Use form data in req.body to create new bird
     var bird = Bird(req.body);
 
+    bird.nest = {
+        location: req.body.nestLocation,
+        materials: req.body.nestMaterials
+    };
+
     // Save the bird object to DB as new Bird document
     bird.save().then((birdDoc) => {
       console.log(birdDoc);
       res.redirect('/');
     }).catch((err) => {
-      next(err);
+      if(err.name === 'ValidationError'){
+          req.flash('error', err.message);
+          res.redirect('/');
+      }
+      else {
+          next(err);
+      }
     });
 
 });
@@ -49,6 +60,37 @@ router.get('/bird/:_id', function(req, res, next){
         .catch((err) => {
             next(err);
         });
+});
+
+router.post('/addSighting', function (req, res, next){
+
+    Bird.findOneAndUpdate({_id: req.body._id },
+        { $push: { datesSeen: {$each: [req.body.date], $sort: -1 } } },
+        {runValidators: true})
+        .then((updatedBirdDoc) => {
+            if(updatedBirdDoc){
+                res.redirect(`/bird/${req.body._id}`);
+            }
+            else {
+                var err = Error("Adding sighting error, bird not found");
+                err.status = 404;
+                throw err;
+            }
+        })
+        .catch((err) => {
+            if (err.name === 'CastError'){
+                req.flash('error', 'Date must be in valid format');
+                res.redirect(`/bird/${req.body._id}`);
+            }
+            else if (err.name === 'ValidationError'){
+                req.flash('error', err.message);
+                res.redirect(`/bird/${req.body._id}`)
+            }
+            else{
+                next(err);
+            }
+        });
+
 });
 
 module.exports = router;
