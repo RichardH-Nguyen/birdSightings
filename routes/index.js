@@ -93,4 +93,38 @@ router.post('/addSighting', function (req, res, next){
 
 });
 
+router.post('/deleteBird', function(req, res, next){
+    Bird.findByIdAndRemove(req.body._id)
+        .then((deletedBird) => {
+            if(deletedBird){
+                req.flash('info', `${req.body.name} has been deleted.`);
+                res.redirect('/');
+            }
+        })
+        .catch((err) => {
+            next(err);
+        })
+});
+
+router.post('/updateBird', function(req, res, next){
+    Bird.update({_id:req.body._id},
+        {
+            description: req.body.description,
+            averageEggs: req.body.averageEggs,
+            height: req.body.height,
+            nest:{location: req.body.nestLocation,
+                materials: req.body.nestMaterials
+            }
+        }, {runValidators: true})
+        .then((updatedBirdDoc) => {
+            if(updatedBirdDoc){
+                req.flash('info', `${req.body.name} has been updated.`);
+                res.redirect(`/bird/${req.body._id}`);
+            }
+        })
+        .catch((err) => {
+            next(err);
+        })
+});
+
 module.exports = router;

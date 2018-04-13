@@ -1,23 +1,44 @@
 <div class="bird-info">
     <h2> Bird Information</h2>
 
-    <h3>Description</h3>
-    <p>{{bird.description}}</p>
+    <div class="flash-info">
+        {{#if messages}}
+            <p class="info-message">{{messages.info}}</p>
+        {{/if}}
+    </div>
 
-    <h3>Average Eggs Laid</h3>
-    <p>{{bird.averageEggs}}</p>
+    <form method="POST" action="/updateBird">
+        <h3>Description</h3>
+        <input name="description" value="{{bird.description}}">
 
-    <h3>Conservation Status</h3>
-    {{#if bird.endangered}}
-        <p>{{bird.name}} is endangered</p>
-    {{else}}
-        <p>{{bird.name}} is not endangered</p>
-    {{/if}}
+        <h3>Average Eggs Laid</h3>
+        <input name="averageEggs" type="number" value="{{bird.averageEggs}}">
 
-    <h3>Nest Information</h3>
+        <h3>Conservation Status</h3>
+        {{#if bird.endangered}}
+            <p>{{bird.name}} is endangered</p>
+        {{else}}
+            <p>{{bird.name}} is not endangered</p>
+        {{/if}}
 
-    <p>Location: {{bird.nest.location}}</p>
-    <p>Materials: {{bird.nest.materials}}</p>
+        <h3>Height</h3>
+        <input name="height" type="number" value="{{bird.height}}">cm
+
+        <h3>Nest Information</h3>
+
+        <p>Location: <input name ="nestLocation" value="{{bird.nest.location}}"></p>
+        <p>Materials: <input name="nestMaterials" value="{{bird.nest.materials}}"></p>
+
+        <button type="submit" class="update">Update Info</button>
+        <input type="hidden" name="_id" value="{{bird._id}}">
+        <input type="hidden" name="name" value="{{bird.name}}">
+    </form>
+
+    <form method="POST" action="/deleteBird">
+        <button type="submit" class="delete" name="{{bird.name}}">Delete Bird</button>
+        <input type="hidden" name="_id" value="{{bird._id}}">
+        <input type="hidden" name="name" value="{{bird.name}}">
+    </form>
 
 </div>
 
@@ -55,3 +76,5 @@
     {{/each}}
     </div>
 </div>
+
+<script src="/javascripts/confirm-delete.js"></script>

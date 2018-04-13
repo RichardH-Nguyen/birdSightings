@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.flash-info{
+  color: green;
+}
+
+.flash-errors{
+  color: red;
+}
