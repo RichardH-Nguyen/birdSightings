@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/about', function(req, res, next){
-   res.render('about');
+   res.render('about', {title: 'About'});
 });
 
 /* POST create new bird document */
