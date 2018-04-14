@@ -1,6 +1,9 @@
 <div class="bird-info">
     <h2> Bird Information</h2>
 
+    <!-- all the bird info is held in an input box,to update just change the information and click the
+    update info button.-->
+
     <div class="flash-info">
         {{#if messages}}
             <p class="info-message">{{messages.info}}</p>
@@ -17,8 +20,10 @@
         <h3>Conservation Status</h3>
         {{#if bird.endangered}}
             <p>{{bird.name}} is endangered</p>
+            Uncheck box to update statius to not endangered: <input name="endangered" value="true" type="checkbox" checked>
         {{else}}
             <p>{{bird.name}} is not endangered</p>
+            Check box to update statius to endangered: <input name="endangered" value="true" type="checkbox">
         {{/if}}
 
         <h3>Height</h3>

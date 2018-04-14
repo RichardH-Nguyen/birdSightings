@@ -63,7 +63,7 @@ router.get('/bird/:_id', function(req, res, next){
 });
 
 router.post('/addSighting', function (req, res, next){
-
+    //Find bird by _id and push date to datesSeen array and sort by newest
     Bird.findOneAndUpdate({_id: req.body._id },
         { $push: { datesSeen: {$each: [req.body.date], $sort: -1 } } },
         {runValidators: true})
@@ -94,6 +94,8 @@ router.post('/addSighting', function (req, res, next){
 });
 
 router.post('/deleteBird', function(req, res, next){
+    //finds bird by body._id and deletes it
+    // and sends a flash message with name of bird deleted
     Bird.findByIdAndRemove(req.body._id)
         .then((deletedBird) => {
             if(deletedBird){
@@ -107,10 +109,12 @@ router.post('/deleteBird', function(req, res, next){
 });
 
 router.post('/updateBird', function(req, res, next){
+    // updates bird info from birdinfo page
     Bird.update({_id:req.body._id},
         {
             description: req.body.description,
             averageEggs: req.body.averageEggs,
+            endangered: req.body.endangered,
             height: req.body.height,
             nest:{location: req.body.nestLocation,
                 materials: req.body.nestMaterials
