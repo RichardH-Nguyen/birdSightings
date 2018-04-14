@@ -16,6 +16,10 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/about', function(req, res, next){
+   res.render('about');
+});
+
 /* POST create new bird document */
 router.post('/addBird', function (req, res, next) {
 

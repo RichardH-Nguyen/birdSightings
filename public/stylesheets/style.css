@@ -1,9 +1,14 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: darkgray;
 }
 
 a {
+  color: darkcyan;
+}
+
+a:hover{
   color: #00B7FF;
 }
 
@@ -13,4 +18,20 @@ a {
 
 .flash-errors{
   color: red;
+}
+
+input{
+  margin-bottom: 10px;
+}
+
+.layout-tab{
+  position: sticky;
+  top: 2px;
+  color: white;
+  text-align: center;
+  background-color: darkgray;
+}
+
+.layout-buttons{
+  background-color: black;
 }
